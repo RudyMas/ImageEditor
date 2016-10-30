@@ -1,0 +1,21 @@
+{
+  "name": "rudymas/image-editor",
+  "description": "Quick edits for images",
+  "type": "library",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Rudy Mas",
+      "email": "rudy.mas@rudymas.be"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">= 5.4.0 || >= 7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "RudyMas\\ImageEditor\\": "src/"
+    }
+  }
+}
