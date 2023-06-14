@@ -58,8 +58,10 @@ class ImageEditor
      */
     public function __destruct()
     {
-        imagedestroy($this->imageOriginal);
-        imagedestroy($this->imageNew);
+        @imagedestroy($this->imageOriginal);
+        if (isset($this->imageNew)) {
+            @imagedestroy($this->imageNew);
+        }
     }
 
     /**
