@@ -1,30 +1,34 @@
 <?php
-namespace RudyMas\ImageEditor;
+
+namespace RudyMas;
+
+use GdImage;
 
 /**
  * Class ImageEditor (Quick edits for images)
  *
  * @author      Rudy Mas <rudy.mas@rudymas.be>
- * @copyright   2014 - 2016, rudymas.be. (http://www.rudymas.be/)
+ * @copyright   2014 - 2023, rudymas.be. (http://www.rudymas.be/)
  * @license     https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version     0.3.0
+ * @version     8.2.0.0
  */
 class ImageEditor
 {
-    private $imageName;
-    private $imageOriginalLength;
-    private $imageOriginalHeight;
-    private $imageOriginal;
-    private $imageNewLength;
-    private $imageNewHeight;
-    private $imageNew;
+    private string $imageName;
+    private int $imageOriginalLength;
+    private int $imageOriginalHeight;
+    private GdImage $imageOriginal;
+    private int $imageNewLength;
+    private int $imageNewHeight;
+    private GdImage $imageNew;
+    private array|false $imageInfo;
 
     /**
      * ImageEditor constructor.
      *
-     * @param string    $file   The image file to process
+     * @param string $file The image file to process
      */
-    public function __construct($file)
+    public function __construct(string $file)
     {
         if (!is_file($file)) die("File '$file' doesn't exist on the server.");
         $this->imageInfo = getimagesize($file);
@@ -61,11 +65,11 @@ class ImageEditor
     /**
      * Creating a new resized image
      *
-     * @param int   $length The new maximum length of the image
-     * @param int   $height The new maximum height of the image
-     * @param bool  $resize Set to FALSE to do a resampling, TRUE for resizing (Default: FALSE)
+     * @param int $length The new maximum length of the image
+     * @param int $height The new maximum height of the image
+     * @param bool $resize Set FALSE = resampling, TRUE = resizing (Default: FALSE)
      */
-    public function imageResize($length, $height, $resize = FALSE)
+    public function imageResize(int $length, int $height, bool $resize = FALSE): void
     {
         if ($length == 0 && $height != 0) {
             $lengthNew = floor($this->imageOriginalLength * ($height / $this->imageOriginalHeight));
@@ -95,9 +99,9 @@ class ImageEditor
     /**
      * Saving the new image to the server
      *
-     * @param string    $newFileName    The filename for the now image
+     * @param string $newFileName The filename for the now image
      */
-    public function imageSave($newFileName)
+    public function imageSave(string $newFileName): void
     {
         $extension = strtolower(pathinfo($newFileName, PATHINFO_EXTENSION));
         switch ($extension) {
@@ -116,5 +120,30 @@ class ImageEditor
                 break;
         }
     }
+
+    public function getExifData(): array
+    {
+        return exif_read_data($this->imageName);
+    }
+
+    public function getIptcData(): array
+    {
+        return iptcparse($this->imageName);
+    }
+
+    /**
+     * @return int
+     */
+    public function getImageNewLength(): int
+    {
+        return $this->imageNewLength;
+    }
+
+    /**
+     * @return int
+     */
+    public function getImageNewHeight(): int
+    {
+        return $this->imageNewHeight;
+    }
 }
-/** End of File: ImageEditor.php **/
