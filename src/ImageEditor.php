@@ -121,14 +121,15 @@ class ImageEditor
         }
     }
 
-    public function getExifData(): array
+    public function getExifData(): array|false
     {
         return exif_read_data($this->imageName);
     }
 
-    public function getIptcData(): array
+    public function getIptcData(): array|false
     {
-        return iptcparse($this->imageName);
+        $dump = getimagesize($this->imageName, $info);
+        return iptcparse($info['APP13']);
     }
 
     /**
