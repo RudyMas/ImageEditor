@@ -135,6 +135,35 @@ class ImageEditor
     }
 
     /**
+     * Calculate the EXIF data
+     *
+     * @param string $data
+     * @return float|int
+     */
+    public function calculateExifData(string $data): float|int
+    {
+        $temp = explode('/', $data);
+        return $temp[0] / $temp[1];
+    }
+
+    /**
+     * Create a string from the GPS data
+     *
+     * @param $degree
+     * @param $minutes
+     * @param $seconds
+     * @param $position
+     * @return string
+     */
+    public function calculateGpsData($degree, $minutes, $seconds, $position): string
+    {
+        $cDegree = $this->calculateExifData($degree);
+        $cMinutes = floor($this->calculateExifData($minutes));
+        $cSeconds = floor(($this->calculateExifData($minutes) - $cMinutes) * 60) + floor($this->calculateExifData($seconds));
+        return htmlspecialchars(sprintf('%s %s° %s\' %s"', $position, $cDegree, $cMinutes, $cSeconds), ENT_QUOTES);
+    }
+
+    /**
      * @return int
      */
     public function getImageNewLength(): int
