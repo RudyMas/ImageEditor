@@ -138,12 +138,13 @@ class ImageEditor
      * Calculate the EXIF data
      *
      * @param string $data
+     * @param int $round
      * @return float|int
      */
-    public function calculateExifData(string $data): float|int
+    public function calculateExifData(string $data, int $round = 4): float|int
     {
         $temp = explode('/', $data);
-        return $temp[0] / $temp[1];
+        return round($temp[0] / $temp[1], $round);
     }
 
     /**
