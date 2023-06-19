@@ -160,7 +160,7 @@ class ImageEditor
         $cDegree = $this->calculateExifData($degree);
         $cMinutes = floor($this->calculateExifData($minutes));
         $cSeconds = floor(($this->calculateExifData($minutes) - $cMinutes) * 60) + floor($this->calculateExifData($seconds));
-        return htmlspecialchars(sprintf('%s %s° %s\' %s"', $position, $cDegree, $cMinutes, $cSeconds), ENT_QUOTES);
+        return htmlspecialchars(sprintf('%s° %s\' %s %s"', $cDegree, $cMinutes, $cSeconds, $position), ENT_QUOTES);
     }
 
     /**
