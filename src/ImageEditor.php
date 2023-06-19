@@ -10,7 +10,7 @@ use GdImage;
  * @author      Rudy Mas <rudy.mas@rudymas.be>
  * @copyright   2014 - 2023, rudymas.be. (http://www.rudymas.be/)
  * @license     https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version     8.2.0.2
+ * @version     8.2.0.3
  */
 class ImageEditor
 {
@@ -160,7 +160,7 @@ class ImageEditor
         $cDegree = $this->calculateExifData($degree);
         $cMinutes = floor($this->calculateExifData($minutes));
         $cSeconds = floor(($this->calculateExifData($minutes) - $cMinutes) * 60) + floor($this->calculateExifData($seconds));
-        return htmlspecialchars(sprintf('%s° %s\' %s %s"', $cDegree, $cMinutes, $cSeconds, $position), ENT_QUOTES);
+        return htmlspecialchars(sprintf('%s° %s\' %s" %s', $cDegree, $cMinutes, $cSeconds, $position), ENT_QUOTES);
     }
 
     /**
