@@ -10,7 +10,7 @@ use GdImage;
  * @author      Rudy Mas <rudy.mas@rudymas.be>
  * @copyright   2014 - 2023, rudymas.be. (http://www.rudymas.be/)
  * @license     https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version     8.2.0.4
+ * @version     8.2.0.5
  */
 class ImageEditor
 {
@@ -131,7 +131,7 @@ class ImageEditor
     public function getIptcData(): array|false
     {
         $dump = getimagesize($this->imageName, $info);
-        return iptcparse($info['APP13']);
+        return isset($info['APP13']) ? iptcparse($info['APP13']) : [];
     }
 
     /**
