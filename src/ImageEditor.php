@@ -10,7 +10,7 @@ use GdImage;
  * @author      Rudy Mas <rudy.mas@rudymas.be>
  * @copyright   2014 - 2023, rudymas.be. (http://www.rudymas.be/)
  * @license     https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version     8.2.0.1
+ * @version     8.2.0.2
  */
 class ImageEditor
 {
